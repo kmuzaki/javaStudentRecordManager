@@ -66,42 +66,36 @@ public class StudentManager {
                 System.out.print("Type in selection> ");
                 selectionInt = scanner.nextInt();
 
-                if (selectionInt == 1) {
-                    // Block of array code
-                    clearScreen();
-                    // System.out.println("You selected Array.");
-                    addStudent(null);
-                } else if (selectionInt == 2) {
-                    // Block of Linked List code
-                    clearScreen();
-                    gettAllStudents();
+                clearScreen();
+                switch (selectionInt) {
+                    case 1:
+                        // Block of array code
+                        addStudent(null);
+                        break;
+                    case 2:
+                        // Block of Linked List code
+                        gettAllStudents();
+                        break;
+                    case 3:
+                        updateStudent(null);
+                        break;
+                    case 4:
+                        getStudentById(selectionString);
+                        break;
+                    case 5:
+                        removeStudent(selectionString);
+                        break;
+                    case 0:
+                        System.out.println("See you next time!");
+                        break;
+                    default:
+                        System.out.println("Invalid Input! Please check your input again.");
+                        System.out.println("");
+                        break;
                 }
-                
-                else if (selectionInt == 3) {
-                    System.out.println("See you next time!");
+                if (selectionInt == 0 || (selectionInt >= 3 && selectionInt <= 5)) {
                     break;
-                } 
-                
-                else if (selectionInt == 4) {
-                    System.out.println("See you next time!");
-                    break;
-                } 
-                
-                else if (selectionInt == 5) {
-                    System.out.println("See you next time!");
-                    break;
-                } 
-                
-                else if (selectionInt == 0) {
-                    System.out.println("See you next time!");
-                    break;
-                } 
-                
-                else {
-                    System.out.println("Invalid Input! Please check your input again.");
-                    System.out.println("");
                 }
-                
             } catch (Exception e) {
                 System.out.println("Invalid Input! Please check your input again.");
                 clearScreen();
@@ -111,3 +105,4 @@ public class StudentManager {
     }
     
 }
+
