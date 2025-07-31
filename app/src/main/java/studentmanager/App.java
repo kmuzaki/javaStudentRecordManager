@@ -5,10 +5,12 @@ package studentmanager;
 
 public class App {
     public String getGreeting() {
-        return "Hello World!";
+        return "Hello and welcome to the Student Manager Application, Admin!";
     }
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        StudentManager studentManager = new StudentManager();
+        studentManager.mainMenu();
     }
 }

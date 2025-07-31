@@ -1,10 +1,22 @@
 package studentmanager;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class StudentManager {
     // List to store all student records
     private List<Student> students;
+
+    // Scanner for user input
+    Scanner scanner = new Scanner(System.in);
+    int selectionInt;
+    String selectionString;
+
+    // Clear screen method
+    public void clearScreen() {  
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    }
 
     // Method to add a new student
     public void addStudent(Student student) {
@@ -36,5 +48,66 @@ public class StudentManager {
         System.out.println("Removing student with ID: " + studentId);
     }
 
+    // Method for main menu to manage students
+    public void mainMenu(){
+        
+        while (true){
+            System.out.println("=============================");
+            System.out.println("Please select your selection:");
+            System.out.println("1. Add new student");
+            System.out.println("2. View all students");
+            System.out.println("3. Edit student information");
+            System.out.println("4. Search student by ID");
+            System.out.println("5. Remove student");
+            System.out.println("0. Exit");
+            System.out.println("=============================");
+
+            try {
+                System.out.print("Type in selection> ");
+                selectionInt = scanner.nextInt();
+
+                if (selectionInt == 1) {
+                    // Block of array code
+                    clearScreen();
+                    // System.out.println("You selected Array.");
+                    addStudent(null);
+                } else if (selectionInt == 2) {
+                    // Block of Linked List code
+                    clearScreen();
+                    gettAllStudents();
+                }
+                
+                else if (selectionInt == 3) {
+                    System.out.println("See you next time!");
+                    break;
+                } 
+                
+                else if (selectionInt == 4) {
+                    System.out.println("See you next time!");
+                    break;
+                } 
+                
+                else if (selectionInt == 5) {
+                    System.out.println("See you next time!");
+                    break;
+                } 
+                
+                else if (selectionInt == 0) {
+                    System.out.println("See you next time!");
+                    break;
+                } 
+                
+                else {
+                    System.out.println("Invalid Input! Please check your input again.");
+                    System.out.println("");
+                }
+                
+            } catch (Exception e) {
+                System.out.println("Invalid Input! Please check your input again.");
+                clearScreen();
+                scanner.nextLine();
+            }
+        }
+    }
     
 }
