@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class StudentManager {
     // List to store all student records
-    private List<Student> students;
+    private List<Student> studentList;
 
     // Scanner for user input
     Scanner scanner = new Scanner(System.in);
@@ -71,20 +71,15 @@ public class StudentManager {
                     case 1:
                         // Block of array code
                         addStudent(null);
-                        break;
                     case 2:
                         // Block of Linked List code
                         gettAllStudents();
-                        break;
                     case 3:
                         updateStudent(null);
-                        break;
                     case 4:
                         getStudentById(selectionString);
-                        break;
                     case 5:
                         removeStudent(selectionString);
-                        break;
                     case 0:
                         System.out.println("See you next time!");
                         break;
@@ -93,7 +88,7 @@ public class StudentManager {
                         System.out.println("");
                         break;
                 }
-                if (selectionInt == 0 || (selectionInt >= 3 && selectionInt <= 5)) {
+                if (selectionInt == 0) {
                     break;
                 }
             } catch (Exception e) {
