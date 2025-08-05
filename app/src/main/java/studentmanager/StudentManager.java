@@ -86,7 +86,20 @@ public class StudentManager {
 
     // Method to list all students
     public void gettAllStudents() {
-        return null; //Placeholder (Will be replace with actual logic)
+        System.out.println("");
+        System.out.println("Listing all students:");
+        System.out.println("==============================");
+        System.out.println("ID\tFirst Name\tLast Name\tAge\tEmail\tCourse");
+        for (Student student : studentList) {
+            System.out.printf("%d\t%s\t%s\t%d\t%s\t%s%n", 
+                student.getStudentId(), 
+                student.getFirstName(), 
+                student.getLastName(), 
+                student.getAge(), 
+                student.getEmail(), 
+                student.getCourse());
+        }
+        System.out.println("==============================");
     }
 
     // Method to remove a student by ID
@@ -139,7 +152,8 @@ public class StudentManager {
                     break;
                 }
             } catch (Exception e) {
-                System.out.println("Invalid Input! Please check your input again.");
+                System.out.println("");
+                // System.out.println("Invalid Input! Please check your input again.");
                 // clearScreen();
                 scanner.nextLine();
             }
