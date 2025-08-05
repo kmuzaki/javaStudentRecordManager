@@ -2,7 +2,8 @@ package studentmanager;
 
 public class Student {
     // Fields for student attributes
-    private String studentId;
+    private static int idCounter = 0; // Static counter for unique student IDs
+    private int studentId;
     private String firstName;
     private String lastName;
     private int age;
@@ -10,8 +11,8 @@ public class Student {
     private String course;
 
     // Full constructor for Student object class
-    public Student(String studentId, String firstName, String lastName, int age, String email, String course) {
-        this.studentId = studentId;
+    public Student(String firstName, String lastName, int age, String email, String course) {
+        this.studentId = idCounter++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -20,7 +21,7 @@ public class Student {
     }
 
     // Getter methods for each attribute
-    public String getStudentId() {
+    public int getStudentId() {
         return studentId;
     }
 
@@ -46,7 +47,7 @@ public class Student {
 
 
     // Setter methods for each attribute
-    public void setStudentId(String studentId) {
+    public void setStudentId(int studentId) {
         this.studentId = studentId;
     }
 

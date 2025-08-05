@@ -10,7 +10,6 @@ public class StudentManager {
     // Scanner for user input
     Scanner scanner = new Scanner(System.in);
     int selectionInt;
-    String selectionString;
 
     // Clear screen method
     public void clearScreen() {  
@@ -19,9 +18,53 @@ public class StudentManager {
     }
 
     // Method to add a new student
-    public void addStudent(Student student) {
-        // Logic to add student to the database or collection
-        System.out.println("Adding student: " + student.getFirstName() + " " + student.getLastName());
+    public void addStudent() {
+        String firstName;
+        String lastName;
+        int age;
+        String email;
+        String course;
+        scanner.nextLine(); //Consume leftover newline
+        while (true) {
+            System.out.print("Please enter Student's first name: ");
+            firstName = scanner.nextLine(); // Read string input correctly
+
+            // System.out.println("");
+            System.out.print("Please enter Student's last name: ");
+            lastName = scanner.nextLine(); // Read string input correctly
+
+            // System.out.println("");
+            System.out.print("Please enter student's age: ");
+            while (true) {
+                try {
+                    age = scanner.nextInt(); // Read integer input
+                    if (age < 0) {
+                        System.out.println("Age cannot be negative. Please try again.");
+                        System.out.print("Please enter student's age: ");
+                    } else {
+                        scanner.nextLine(); // Consume the newline character
+                        break; // Exit the loop if input is valid
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid input for age. Please enter a valid number.");
+                    System.out.print("Please enter student's age: ");
+                    scanner.nextLine(); // Clear the invalid input
+                }
+            }
+
+            // System.out.println("");
+            System.out.print("Please enter Student's email: ");
+            email = scanner.nextLine(); // Read string input correctly
+
+            // System.out.println("");
+            System.out.print("Please enter Student's course: ");
+            course = scanner.nextLine(); // Read string input correctly
+
+            studentList.add(new Student(firstName, lastName, age, email, course));
+            System.out.println("Student added successfully!");
+            break; // Exit the loop after successful addition
+        }
+        
     }
 
     // Method to update or edit a student's information
@@ -70,23 +113,23 @@ public class StudentManager {
                 switch (selectionInt) {
                     case 1:
                         // Block of array code
-                        addStudent(null);
+                        addStudent();
                     case 2:
                         // Block of Linked List code
                         gettAllStudents();
                     case 3:
                         updateStudent(null);
                     case 4:
-                        getStudentById(selectionString);
+                        // getStudentById();
                     case 5:
-                        removeStudent(selectionString);
+                        // removeStudent();
                     case 0:
                         System.out.println("See you next time!");
                         break;
-                    default:
-                        System.out.println("Invalid Input! Please check your input again.");
-                        System.out.println("");
-                        break;
+                    // default:
+                    //     System.out.println("Invalid Input! Please put again.");
+                    //     System.out.println("");
+                    //     break;
                 }
                 if (selectionInt == 0) {
                     break;
