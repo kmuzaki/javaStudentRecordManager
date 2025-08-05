@@ -1,11 +1,20 @@
 package studentmanager;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentManager {
     // List to store all student records
-    private List<Student> studentList;
+    private List<Student> studentList; //To declare what objects' data type is stored in the list
+
+    // Constructor to initialize studentList
+    public StudentManager() {
+        studentList = new ArrayList<>(); //ArrayList is used as the concrete implementation of List
+        studentList.add(new Student("John", "Doe", 20, "email", "Computer Science"));
+        studentList.add(new Student("Jane", "Smith", 22, "email", "Mathematics"));
+        studentList.add(new Student("Alice", "Johnson", 21, "email", "Physics"));
+    }
 
     // Scanner for user input
     Scanner scanner = new Scanner(System.in);
@@ -29,34 +38,29 @@ public class StudentManager {
             System.out.print("Please enter Student's first name: ");
             firstName = scanner.nextLine(); // Read string input correctly
 
-            // System.out.println("");
+            System.out.println("");
             System.out.print("Please enter Student's last name: ");
             lastName = scanner.nextLine(); // Read string input correctly
 
-            // System.out.println("");
+            System.out.println("");
             System.out.print("Please enter student's age: ");
-            while (true) {
-                try {
-                    age = scanner.nextInt(); // Read integer input
-                    if (age < 0) {
-                        System.out.println("Age cannot be negative. Please try again.");
-                        System.out.print("Please enter student's age: ");
-                    } else {
-                        scanner.nextLine(); // Consume the newline character
-                        break; // Exit the loop if input is valid
-                    }
-                } catch (Exception e) {
-                    System.out.println("Invalid input for age. Please enter a valid number.");
-                    System.out.print("Please enter student's age: ");
-                    scanner.nextLine(); // Clear the invalid input
+            try {
+                age = scanner.nextInt(); // Read integer input
+                if (age < 0) {
+                    System.out.println("Age cannot be negative. Please try again.");
+                    continue;
                 }
+            } catch (Exception e) {
+                System.out.println("Invalid input for age. Please enter a valid number.");
+                scanner.nextLine(); // Clear the invalid input
+                continue;
             }
 
-            // System.out.println("");
+            System.out.println("");
             System.out.print("Please enter Student's email: ");
             email = scanner.nextLine(); // Read string input correctly
 
-            // System.out.println("");
+            System.out.println("");
             System.out.print("Please enter Student's course: ");
             course = scanner.nextLine(); // Read string input correctly
 
@@ -81,7 +85,7 @@ public class StudentManager {
     }
 
     // Method to list all students
-    public List<Student> gettAllStudents() {
+    public void gettAllStudents() {
         return null; //Placeholder (Will be replace with actual logic)
     }
 
@@ -126,21 +130,29 @@ public class StudentManager {
                     case 0:
                         System.out.println("See you next time!");
                         break;
-                    // default:
-                    //     System.out.println("Invalid Input! Please put again.");
-                    //     System.out.println("");
-                    //     break;
+                    default:
+                        System.out.println("Invalid Input! Please check your input again.");
+                        System.out.println("");
+                        break;
                 }
                 if (selectionInt == 0) {
                     break;
                 }
             } catch (Exception e) {
                 System.out.println("Invalid Input! Please check your input again.");
-                clearScreen();
+                // clearScreen();
                 scanner.nextLine();
             }
         }
     }
-    
+
+    // Constructor to initialize studentList and add dummy records
+    // public StudentManager() {
+    //     studentList = new ArrayList<>();
+    //     studentList.add(new Student("John", "Doe", 20, "email", "Computer Science"));
+    //     studentList.add(new Student("Jane", "Smith", 22, "email", "Mathematics"));
+    //     studentList.add(new Student("Alice", "Johnson", 21, "email", "Physics"));
+    // }
+
 }
 

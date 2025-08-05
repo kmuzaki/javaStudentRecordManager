@@ -10,7 +10,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
-        StudentManager studentManager = new StudentManager();
+        StudentManager studentManager = new StudentManager(); // constructor runs here, dummy records loaded
         studentManager.mainMenu();
     }
 }
