@@ -43,19 +43,27 @@ public class StudentManager {
             lastName = scanner.nextLine(); // Read string input correctly
 
             System.out.println("");
-            System.out.print("Please enter student's age: ");
-            try {
-                age = scanner.nextInt(); // Read integer input
-                if (age < 0) {
-                    System.out.println("Age cannot be negative. Please try again.");
-                    continue;
-                }
-            } catch (Exception e) {
-                System.out.println("Invalid input for age. Please enter a valid number.");
-                scanner.nextLine(); // Clear the invalid input
-                continue;
+            while (true) {
+                System.out.print("Please enter student's age: ");
+                try {
+                    age = scanner.nextInt(); // Read integer input
+                    if (age < 0) {
+                        System.out.println("Age cannot be negative. Please try again.");
+                        // continue;
+                    } else if (age > 0 && age < 18) {
+                        System.out.println("Age must be 18 or older. Please try input age again.");
+                        // continue;
+                    } else {
+                        scanner.nextLine(); // Consume the newline character after reading an integer
+                        break; // Exit the loop if age is valid
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid input for age. Please enter a valid number.");
+                    scanner.nextLine(); // Clear the invalid input
+                    // continue;
+                }    
             }
-
+            
             System.out.println("");
             System.out.print("Please enter Student's email: ");
             email = scanner.nextLine(); // Read string input correctly
@@ -65,7 +73,8 @@ public class StudentManager {
             course = scanner.nextLine(); // Read string input correctly
 
             studentList.add(new Student(firstName, lastName, age, email, course));
-            System.out.println("Student added successfully!");
+            System.out.println("Student added successfully! Enter key to continue...");
+            scanner.nextLine(); // Consume the newline character after reading input
             break; // Exit the loop after successful addition
         }
         
@@ -129,17 +138,20 @@ public class StudentManager {
                 clearScreen();
                 switch (selectionInt) {
                     case 1:
-                        // Block of array code
                         addStudent();
+                        break;
                     case 2:
-                        // Block of Linked List code
                         gettAllStudents();
+                        break;
                     case 3:
                         updateStudent(null);
+                        break;
                     case 4:
                         // getStudentById();
+                        break;
                     case 5:
                         // removeStudent();
+                        break;
                     case 0:
                         System.out.println("See you next time!");
                         break;
