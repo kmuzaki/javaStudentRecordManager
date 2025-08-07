@@ -26,6 +26,16 @@ public class StudentManager {
         System.out.flush();  
     }
 
+    // Private temp method to find a student by ID
+    private Student findStudentById(int id) {
+    for (Student student : studentList) {
+        if (student.getStudentId() == id) {
+            return student;
+        }
+    }
+    return null; // Not found
+}
+
     // Method to add a new student
     public void addStudent() {
         String firstName;
@@ -82,16 +92,16 @@ public class StudentManager {
 
     // Method to update or edit a student's information
     public void updateStudent() {
-        getStudentById(null); // Display student information to be updated
+        gettAllStudents(); // Display student information to be updated
         while (true) {
             System.out.println("Please enter the ID of the student you want to update:");
             try {
                 int id = scanner.nextInt(); // Read integer input for student ID
-                boolean found = false;
-                for (Student student : studentList) {
-                    if (student.getStudentId() == id) {
+                boolean found = false; // Flag to check if student is found
+                for (Student student : studentList) { // Iterate through the list of students
+                    if (student.getStudentId() == id) { // Check if the student ID matches
                         found = true;
-                        System.out.println("Updating student: " + student.getFirstName() + " " + student.getLastName());
+                        System.out.println("Student found: " + student.getFirstName() + " " + student.getLastName());
                         // Logic to update student information
                         // For example, you can prompt for new values and set them using setter methods
                         System.out.print("Enter new first name (or press Enter to keep current): ");
@@ -100,28 +110,73 @@ public class StudentManager {
                         if (!newFirstName.isEmpty()) {
                             student.setFirstName(newFirstName);
                         }
-                        // Repeat for other fields...
+
+                        System.out.print("Enter new last name (or press Enter to keep current): ");
+                        String newLastName = scanner.nextLine();
+                        if (!newLastName.isEmpty()) {
+                            student.setLastName(newLastName);
+                        }
+
+                        System.out.print("Enter new age (or press Enter to keep current): ");
+                        while (true) {
+                            try {
+                                int ageInput = scanner.nextInt();
+                                String ageStr = scanner.nextLine();
+                                if (ageStr.isEmpty()) {
+                                    break; // Keep current age
+                                }
+                                int newAge = Integer.parseInt(ageStr);
+                                if (newAge < 0) {
+                                    System.out.println("Age cannot be negative. Please try again.");
+                                    continue; // Ask for input again
+                                } else if (newAge < 18) {
+                                    System.out.println("Age must be 18 or older. Please try input age again.");
+                                    continue; // Ask for input again
+                                }
+                                student.setAge(newAge);
+                                break; // Exit the loop if age is valid
+                            } catch (NumberFormatException e) {
+                                System.out.println("Invalid input for age. Please enter a valid number.");
+                            }
+                        }
+
+                        scanner.nextLine(); // Consume newline
+                        System.out.print("Enter new email (or press Enter to keep current): ");
+                        String newEmail = scanner.nextLine();
+                        if (!newEmail.isEmpty()) {
+                            student.setEmail(newEmail);
+                        }
+
+                        System.out.print("Enter new email (or press Enter to keep current): ");
+                        String newCourse = scanner.nextLine();
+                        if (!newCourse.isEmpty()) {
+                            student.setCourse(newCourse);
+                        }
+
+                        
                         System.out.println("Student updated successfully!");
                         break;
                     }
                 }
-                if (!found) {
+                if (!found) { // If no student with the given ID was found
                     System.out.println("Student with ID " + id + " not found.");
                 }
                 return; // Exit the method after processing
+
             } catch (Exception e) {
                 System.out.println("Invalid Input. Please enter an integer.");
                 scanner.nextLine(); // Clear the invalid input
             }
+
         }
     }
 
     // Method to retrieve a student by ID
-    public Student getStudentById(String studentId) {
-        // Logic to find and return student's information by ID
-        // Temp code
-        return null;
-    }
+    // public Student getStudentById(String studentId) {
+    //     // Logic to find and return student's information by ID
+    //     // Temp code
+    //     return null;
+    // }
 
     // Method to list all students
     public void gettAllStudents() {
@@ -196,7 +251,7 @@ public class StudentManager {
                         gettAllStudents();
                         break;
                     case 3:
-                        updateStudent(null);
+                        updateStudent();
                         break;
                     case 4:
                         // getStudentById();
