@@ -112,9 +112,31 @@ public class StudentManager {
     }
 
     // Method to remove a student by ID
-    public void removeStudent(String studentId) {
-        // Logic to remove student from the database or collection
-        System.out.println("Removing student with ID: " + studentId);
+    public void removeStudent() {
+        gettAllStudents(); // Display all students before removal
+        while (true) {
+            int id;
+            System.out.print("Please enter ID of the student's data you want to remove: ");
+            try {
+                id = scanner.nextInt(); // Read integer input
+                boolean found = false;
+                for (int i = 0; i < studentList.size(); i++) {
+                    if (studentList.get(i).getStudentId() == id) {
+                        studentList.remove(i);
+                        System.out.println("Student with ID " + id + " has been removed successfully.");
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    System.out.println("Student with ID " + id + " not found.");
+                }
+                return; // Exit the method after processing
+            } catch (Exception e) {
+                System.out.println("Invalid Input. Please enter an integer.");
+                scanner.nextLine(); // Clear the invalid input
+            }
+        }
     }
 
     // Method for main menu to manage students
@@ -150,10 +172,11 @@ public class StudentManager {
                         // getStudentById();
                         break;
                     case 5:
-                        // removeStudent();
+                        removeStudent();
                         break;
                     case 0:
                         System.out.println("See you next time!");
+                        scanner.close();
                         break;
                     default:
                         System.out.println("Invalid Input! Please check your input again.");
