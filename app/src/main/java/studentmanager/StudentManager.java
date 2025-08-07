@@ -81,9 +81,39 @@ public class StudentManager {
     }
 
     // Method to update or edit a student's information
-    public void updateStudent(Student student) {
-        // Logic to update student information in the database or collection
-        System.out.println("Updating student: " + student.getFirstName() + " " + student.getLastName());
+    public void updateStudent() {
+        getStudentById(null); // Display student information to be updated
+        while (true) {
+            System.out.println("Please enter the ID of the student you want to update:");
+            try {
+                int id = scanner.nextInt(); // Read integer input for student ID
+                boolean found = false;
+                for (Student student : studentList) {
+                    if (student.getStudentId() == id) {
+                        found = true;
+                        System.out.println("Updating student: " + student.getFirstName() + " " + student.getLastName());
+                        // Logic to update student information
+                        // For example, you can prompt for new values and set them using setter methods
+                        System.out.print("Enter new first name (or press Enter to keep current): ");
+                        scanner.nextLine(); // Consume newline
+                        String newFirstName = scanner.nextLine();
+                        if (!newFirstName.isEmpty()) {
+                            student.setFirstName(newFirstName);
+                        }
+                        // Repeat for other fields...
+                        System.out.println("Student updated successfully!");
+                        break;
+                    }
+                }
+                if (!found) {
+                    System.out.println("Student with ID " + id + " not found.");
+                }
+                return; // Exit the method after processing
+            } catch (Exception e) {
+                System.out.println("Invalid Input. Please enter an integer.");
+                scanner.nextLine(); // Clear the invalid input
+            }
+        }
     }
 
     // Method to retrieve a student by ID
