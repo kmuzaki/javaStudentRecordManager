@@ -97,68 +97,54 @@ public class StudentManager {
             System.out.println("Please enter the ID of the student you want to update:");
             try {
                 int id = scanner.nextInt(); // Read integer input for student ID
-                boolean found = false; // Flag to check if student is found
-                for (Student student : studentList) { // Iterate through the list of students
-                    if (student.getStudentId() == id) { // Check if the student ID matches
-                        found = true;
-                        System.out.println("Student found: " + student.getFirstName() + " " + student.getLastName());
-                        // Logic to update student information
-                        // For example, you can prompt for new values and set them using setter methods
-                        System.out.print("Enter new first name (or press Enter to keep current): ");
-                        scanner.nextLine(); // Consume newline
-                        String newFirstName = scanner.nextLine();
-                        if (!newFirstName.isEmpty()) {
-                            student.setFirstName(newFirstName);
-                        }
-
-                        System.out.print("Enter new last name (or press Enter to keep current): ");
-                        String newLastName = scanner.nextLine();
-                        if (!newLastName.isEmpty()) {
-                            student.setLastName(newLastName);
-                        }
-
-                        System.out.print("Enter new age (or press Enter to keep current): ");
-                        while (true) {
-                            try {
-                                int ageInput = scanner.nextInt();
-                                String ageStr = scanner.nextLine();
-                                if (ageStr.isEmpty()) {
-                                    break; // Keep current age
-                                }
-                                int newAge = Integer.parseInt(ageStr);
-                                if (newAge < 0) {
-                                    System.out.println("Age cannot be negative. Please try again.");
-                                    continue; // Ask for input again
-                                } else if (newAge < 18) {
-                                    System.out.println("Age must be 18 or older. Please try input age again.");
-                                    continue; // Ask for input again
-                                }
-                                student.setAge(newAge);
-                                break; // Exit the loop if age is valid
-                            } catch (NumberFormatException e) {
-                                System.out.println("Invalid input for age. Please enter a valid number.");
-                            }
-                        }
-
-                        scanner.nextLine(); // Consume newline
-                        System.out.print("Enter new email (or press Enter to keep current): ");
-                        String newEmail = scanner.nextLine();
-                        if (!newEmail.isEmpty()) {
-                            student.setEmail(newEmail);
-                        }
-
-                        System.out.print("Enter new email (or press Enter to keep current): ");
-                        String newCourse = scanner.nextLine();
-                        if (!newCourse.isEmpty()) {
-                            student.setCourse(newCourse);
-                        }
-
-                        
-                        System.out.println("Student updated successfully!");
-                        break;
+                Student student = findStudentById(id); // Use the helper method
+                if (student != null) {
+                    System.out.println("Student found: " + student.getFirstName() + " " + student.getLastName());
+                    // Logic to update student information
+                    System.out.print("Enter new first name (or press Enter to keep current): ");
+                    scanner.nextLine(); // Consume newline
+                    String newFirstName = scanner.nextLine();
+                    if (!newFirstName.isEmpty()) {
+                        student.setFirstName(newFirstName);
                     }
-                }
-                if (!found) { // If no student with the given ID was found
+
+                    System.out.print("Enter new last name (or press Enter to keep current): ");
+                    String newLastName = scanner.nextLine();
+                    if (!newLastName.isEmpty()) {
+                        student.setLastName(newLastName);
+                    }
+
+                    System.out.print("Enter new age (or press Enter to keep current): ");
+                    String ageStr = scanner.nextLine();
+                    if (!ageStr.isEmpty()) {
+                        try {
+                            int newAge = Integer.parseInt(ageStr);
+                            if (newAge < 0) {
+                                System.out.println("Age cannot be negative. Please try again.");
+                            } else if (newAge < 18) {
+                                System.out.println("Age must be 18 or older. Please try input age again.");
+                            } else {
+                                student.setAge(newAge);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input for age. Please enter a valid number.");
+                        }
+                    }
+
+                    System.out.print("Enter new email (or press Enter to keep current): ");
+                    String newEmail = scanner.nextLine();
+                    if (!newEmail.isEmpty()) {
+                        student.setEmail(newEmail);
+                    }
+
+                    System.out.print("Enter new course (or press Enter to keep current): ");
+                    String newCourse = scanner.nextLine();
+                    if (!newCourse.isEmpty()) {
+                        student.setCourse(newCourse);
+                    }
+
+                    System.out.println("Student updated successfully!");
+                } else {
                     System.out.println("Student with ID " + id + " not found.");
                 }
                 return; // Exit the method after processing
@@ -167,7 +153,6 @@ public class StudentManager {
                 System.out.println("Invalid Input. Please enter an integer.");
                 scanner.nextLine(); // Clear the invalid input
             }
-
         }
     }
 
@@ -200,20 +185,14 @@ public class StudentManager {
     public void removeStudent() {
         gettAllStudents(); // Display all students before removal
         while (true) {
-            int id;
             System.out.print("Please enter ID of the student's data you want to remove: ");
             try {
-                id = scanner.nextInt(); // Read integer input
-                boolean found = false;
-                for (int i = 0; i < studentList.size(); i++) {
-                    if (studentList.get(i).getStudentId() == id) {
-                        studentList.remove(i);
-                        System.out.println("Student with ID " + id + " has been removed successfully.");
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
+                int id = scanner.nextInt(); // Read integer input
+                Student student = findStudentById(id); // Use the helper method
+                if (student != null) {
+                    studentList.remove(student);
+                    System.out.println("Student with ID " + id + " has been removed successfully.");
+                } else {
                     System.out.println("Student with ID " + id + " not found.");
                 }
                 return; // Exit the method after processing
